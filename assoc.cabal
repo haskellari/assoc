@@ -16,7 +16,7 @@ author:        Oleg Grenrus <oleg.grenrus@iki.fi>
 maintainer:    Oleg Grenrus <oleg.grenrus@iki.fi>
 
 build-type: Simple
-tested-with: ghc ==7.0.4 || ==7.2.2 || ==7.4.2 || ==7.6.3 || ==7.8.4 || ==7.10.3 || == 8.0.2 || == 8.2.2 || ==8.4.4 || ==8.6.3
+tested-with: ghc ==7.0.4 || ==7.2.2 || ==7.4.2 || ==7.6.3 || ==7.8.4 || ==7.10.3 || == 8.0.2 || == 8.2.2 || ==8.4.4 || ==8.6.4
 
 source-repository head
   type:     git
