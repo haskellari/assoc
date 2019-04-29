@@ -1,5 +1,6 @@
 module Data.Bifunctor.Assoc (
     Assoc (..),
+    assoc', unassoc',
     ) where
 
 import Data.Bifunctor (Bifunctor (..))
@@ -18,13 +19,15 @@ import Data.Bifunctor.Product (Product (..))
 -- This library doesn't provide @Monoidal@ class, with left and right unitors.
 -- Are they useful in practice?
 --
+-- /Note:/ 'assoc' and 'unassoc' use irrefutable pattern matches when possible.
+--
 class Bifunctor p => Assoc p where
     assoc :: p (p a b) c -> p a (p b c)
     unassoc :: p a (p b c) -> p (p a b) c
 
 instance Assoc (,) where
-    assoc ((a, b), c) = (a, (b, c))
-    unassoc (a, (b, c)) = ((a, b), c)
+    assoc ~((a, b), c) = (a, (b, c))
+    unassoc ~(a, (b, c)) = ((a, b), c)
 
 instance Assoc Either where
     assoc (Left (Left a))  = Left a
@@ -84,3 +87,12 @@ instance Assoc p => Assoc (Flip p) where
 --
 -- >>> quickCheck $ bimapLaw (Proxy :: Proxy Either)
 -- +++ OK, passed 100 tests.
+--
+
+-- | Strict 'assoc'.
+assoc' :: Assoc p => p (p a b) c -> p a (p b c)
+assoc' x = x `seq` assoc x
+
+-- | Strict 'unassoc'.
+unassoc' :: Assoc p => p a (p b c) -> p (p a b) c
+unassoc' x = x `seq` unassoc x

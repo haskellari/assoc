@@ -1,6 +1,7 @@
 {-# LANGUAGE TypeFamilies #-}
 module Data.Bifunctor.Swap (
     Swap (..),
+    swap',
     ) where
 
 import Data.Bifunctor (Bifunctor (..))
@@ -32,21 +33,23 @@ import qualified Data.Tuple
 --
 -- >>> instance Swap Bipredicate where swap (Bipredicate p) = Bipredicate (flip p)
 --
+-- /Note:/ 'swap' uses irrefutable pattern matches when possible.
+--
 class Swap p where
     swap :: p a b -> p b a
 
 instance Swap (,) where
-    swap = Data.Tuple.swap
+    swap ~(x,y) = (y,x)
 
 instance Swap Either where
-    swap (Left x) = Right x
+    swap (Left x)  = Right x
     swap (Right x) = Left x
 
 instance Swap p => Swap (Flip p) where
     swap = Flip . swap . runFlip
 
 instance (Swap p, Swap q) => Swap (Product p q) where
-    swap (Pair p q) = Pair (swap p) (swap q)
+    swap ~(Pair p q) = Pair (swap p) (swap q)
 
 instance (Swap p, Swap q) => Swap (Sum p q) where
     swap (L2 p) = L2 (swap p)
@@ -57,3 +60,7 @@ instance (Functor f, Swap p) => Swap (Tannen f p) where
 
 instance (f ~ g, Functor f, Swap p) => Swap (Biff p f g) where
     swap = Biff . swap . runBiff
+
+-- | Strict 'swap'.
+swap' :: Swap p => p a b -> p b a
+swap' x = x `seq` swap x
