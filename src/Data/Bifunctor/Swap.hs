@@ -3,12 +3,12 @@ module Data.Bifunctor.Swap (
     Swap (..),
     ) where
 
-import Data.Bifunctor (Bifunctor (..))
-import Data.Bifunctor.Flip (Flip (..))
+import Data.Bifunctor         (Bifunctor (..))
+import Data.Bifunctor.Biff    (Biff (..))
+import Data.Bifunctor.Flip    (Flip (..))
 import Data.Bifunctor.Product (Product (..))
-import Data.Bifunctor.Sum (Sum (..))
-import Data.Bifunctor.Tannen (Tannen (..))
-import Data.Bifunctor.Biff (Biff (..))
+import Data.Bifunctor.Sum     (Sum (..))
+import Data.Bifunctor.Tannen  (Tannen (..))
 
 import qualified Data.Tuple
 
