@@ -2,10 +2,10 @@ module Data.Bifunctor.Assoc (
     Assoc (..),
     ) where
 
-import Data.Bifunctor (Bifunctor (..))
-import Data.Bifunctor.Flip (Flip (..))
-import Data.Bifunctor.Tannen (Tannen (..))
+import Data.Bifunctor         (Bifunctor (..))
+import Data.Bifunctor.Flip    (Flip (..))
 import Data.Bifunctor.Product (Product (..))
+import Data.Bifunctor.Tannen  (Tannen (..))
 
 -- | "Semigroup-y" 'Bifunctor's.
 --
