@@ -1,0 +1,3 @@
+distribution: bionic
+branches:     master
+osx:          8.6.5
