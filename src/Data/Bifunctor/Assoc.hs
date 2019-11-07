@@ -55,6 +55,7 @@ instance Assoc p => Assoc (Flip p) where
 --
 -- >>> import Data.Proxy
 -- >>> import Test.QuickCheck
+-- >>> import Test.QuickCheck.Instances
 -- >>> import Data.Functor.Classes
 --
 -- >>> :{
@@ -68,6 +69,12 @@ instance Assoc p => Assoc (Flip p) where
 -- >>> quickCheck $ assocUnassocLaw (Proxy :: Proxy Either)
 -- +++ OK, passed 100 tests.
 --
+-- >>> quickCheck $ assocUnassocLaw (Proxy :: Proxy Tagged)
+-- +++ OK, passed 100 tests.
+--
+-- >>> quickCheck $ assocUnassocLaw (Proxy :: Proxy Const)
+-- +++ OK, passed 100 tests.
+--
 -- >>> :{
 --     let unassocAssocLaw :: (Assoc p, Eq2 p) => Proxy p -> p (p Int Char) Bool -> Bool
 --         unassocAssocLaw _ x = liftEq2 eq2 (==) (unassoc (assoc x)) x
@@ -77,6 +84,12 @@ instance Assoc p => Assoc (Flip p) where
 -- +++ OK, passed 100 tests.
 --
 -- >>> quickCheck $ unassocAssocLaw (Proxy :: Proxy Either)
+-- +++ OK, passed 100 tests.
+--
+-- >>> quickCheck $ unassocAssocLaw (Proxy :: Proxy Tagged)
+-- +++ OK, passed 100 tests.
+--
+-- >>> quickCheck $ unassocAssocLaw (Proxy :: Proxy Const)
 -- +++ OK, passed 100 tests.
 --
 -- >>> :{
@@ -93,4 +106,10 @@ instance Assoc p => Assoc (Flip p) where
 -- +++ OK, passed 100 tests.
 --
 -- >>> quickCheck $ bimapLaw (Proxy :: Proxy Either)
+-- +++ OK, passed 100 tests.
+--
+-- >>> quickCheck $ bimapLaw (Proxy :: Proxy Tagged)
+-- +++ OK, passed 100 tests.
+--
+-- >>> quickCheck $ bimapLaw (Proxy :: Proxy Const)
 -- +++ OK, passed 100 tests.
