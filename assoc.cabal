@@ -1,11 +1,10 @@
-cabal-version: 1.12
-name:          assoc
-version:       1
-x-revision:    1
-license:       BSD3
-license-file:  LICENSE
-synopsis:      swap and assoc: Symmetric and Semigroupy Bifunctors
-category:      Data
+cabal-version:      1.12
+name:               assoc
+version:            1.0.1
+license:            BSD3
+license-file:       LICENSE
+synopsis:           swap and assoc: Symmetric and Semigroupy Bifunctors
+category:           Data
 description:
   Provides generalisations of
   @swap :: (a,b) -> (b,a)@ and
@@ -13,9 +12,10 @@ description:
   to
   @Bifunctor@s supporting similar operations (e.g. @Either@, @These@).
 
-author:        Oleg Grenrus <oleg.grenrus@iki.fi>
-maintainer:    Oleg Grenrus <oleg.grenrus@iki.fi>
-build-type:    Simple
+author:             Oleg Grenrus <oleg.grenrus@iki.fi>
+maintainer:         Oleg Grenrus <oleg.grenrus@iki.fi>
+build-type:         Simple
+extra-source-files: CHANGELOG.md
 tested-with:
     GHC ==7.0.4
      || ==7.2.2
@@ -39,8 +39,8 @@ library
   hs-source-dirs:   src
   build-depends:
       base        >=4.3   && <4.14
-    , bifunctors  >=5.5.2 && <5.6
-    , tagged      >=0.7.4 && <0.9
+    , bifunctors  >=5.5.5 && <5.6
+    , tagged      >=0.8.6 && <0.9
 
   exposed-modules:
     Data.Bifunctor.Assoc
