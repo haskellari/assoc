@@ -2,10 +2,12 @@ module Data.Bifunctor.Assoc (
     Assoc (..),
     ) where
 
+import Control.Applicative    (Const (..))
 import Data.Bifunctor         (Bifunctor (..))
 import Data.Bifunctor.Flip    (Flip (..))
 import Data.Bifunctor.Product (Product (..))
 import Data.Bifunctor.Tannen  (Tannen (..))
+import Data.Tagged            (Tagged (..))
 
 -- | "Semigroup-y" 'Bifunctor's.
 --
@@ -34,6 +36,14 @@ instance Assoc Either where
     unassoc (Left a)          = Left (Left a)
     unassoc (Right (Left b))  = Left (Right b)
     unassoc (Right (Right c)) = Right c
+
+instance Assoc Const where
+    assoc (Const (Const a)) = Const a
+    unassoc (Const a) = Const (Const a)
+
+instance Assoc Tagged where
+    assoc (Tagged a) = Tagged (Tagged a)
+    unassoc (Tagged (Tagged a)) = Tagged a
 
 instance Assoc p => Assoc (Flip p) where
     assoc   = Flip . first Flip . unassoc . second runFlip . runFlip
