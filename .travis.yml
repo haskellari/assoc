@@ -137,9 +137,9 @@ install:
   - touch cabal.project
   - |
     echo "packages: ." >> cabal.project
+  - if $GHCJS || ! $GHCJS && [ $HCNUMVER -ge 80000 ] ; then echo 'package assoc' >> cabal.project ; fi
+  - "if $GHCJS || ! $GHCJS && [ $HCNUMVER -ge 80000 ] ; then echo '  ghc-options: -Werror=missing-methods' >> cabal.project ; fi"
   - |
-    echo "package assoc"                          >> cabal.project
-    echo "  ghc-options: -Werror=missing-methods" >> cabal.project
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(assoc)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
@@ -164,9 +164,9 @@ script:
   - touch cabal.project
   - |
     echo "packages: ${PKGDIR_assoc}" >> cabal.project
+  - if $GHCJS || ! $GHCJS && [ $HCNUMVER -ge 80000 ] ; then echo 'package assoc' >> cabal.project ; fi
+  - "if $GHCJS || ! $GHCJS && [ $HCNUMVER -ge 80000 ] ; then echo '  ghc-options: -Werror=missing-methods' >> cabal.project ; fi"
   - |
-    echo "package assoc"                          >> cabal.project
-    echo "  ghc-options: -Werror=missing-methods" >> cabal.project
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(assoc)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
