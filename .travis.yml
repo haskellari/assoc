@@ -4,7 +4,7 @@
 #
 # For more information, see https://github.com/haskell-CI/haskell-ci
 #
-# version: 0.9.20200325
+# version: 0.9.20200326
 #
 version: ~> 1.0
 language: c
@@ -138,6 +138,8 @@ install:
   - |
     echo "packages: ." >> cabal.project
   - |
+    echo "package assoc"                          >> cabal.project
+    echo "  ghc-options: -Werror=missing-methods" >> cabal.project
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(assoc)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
@@ -163,6 +165,8 @@ script:
   - |
     echo "packages: ${PKGDIR_assoc}" >> cabal.project
   - |
+    echo "package assoc"                          >> cabal.project
+    echo "  ghc-options: -Werror=missing-methods" >> cabal.project
   - "for pkg in $($HCPKG list --simple-output); do echo $pkg | sed 's/-[^-]*$//' | (grep -vE -- '^(assoc)$' || true) | sed 's/^/constraints: /' | sed 's/$/ installed/' >> cabal.project.local; done"
   - cat cabal.project || true
   - cat cabal.project.local || true
@@ -180,5 +184,5 @@ script:
   - rm -f cabal.project.local
   - ${CABAL} v2-build $WITHCOMPILER --disable-tests --disable-benchmarks all
 
-# REGENDATA ("0.9.20200325",["--config=cabal.haskell-ci","assoc.cabal"])
+# REGENDATA ("0.9.20200326",["--config=cabal.haskell-ci","assoc.cabal"])
 # EOF
