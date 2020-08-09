@@ -57,3 +57,18 @@ instance (Functor f, Swap p) => Swap (Tannen f p) where
 
 instance (f ~ g, Functor f, Swap p) => Swap (Biff p f g) where
     swap = Biff . swap . runBiff
+
+instance Swap ((,,) x) where
+    swap (x,a,b) = (x,b,a)
+
+instance Swap ((,,,) x y) where
+    swap (x,y,a,b) = (x,y,b,a)
+
+instance Swap ((,,,,) x y z) where
+    swap (x,y,z,a,b) = (x,y,z,b,a)
+
+instance Swap ((,,,,,) x y z w) where
+    swap (x,y,z,w,a,b) = (x,y,z,w,b,a)
+
+instance Swap ((,,,,,,) x y z w v) where
+    swap (x,y,z,w,v,a,b) = (x,y,z,w,v,b,a)
