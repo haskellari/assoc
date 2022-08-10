@@ -1,4 +1,5 @@
 {-# LANGUAGE TypeFamilies #-}
+{-# LANGUAGE TypeOperators #-}
 module Data.Bifunctor.Swap (
     Swap (..),
     ) where
