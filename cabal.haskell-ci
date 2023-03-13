@@ -1,2 +1,5 @@
 distribution: bionic
 branches:     master
+
+constraint-set no-tagged
+  constraints: assoc -tagged

@@ -1,13 +1,19 @@
+{-# LANGUAGE CPP #-}
+#if __GLASGOW_HASKELL__ >=704
+{-# LANGUAGE Safe #-}
+#elif __GLASGOW_HASKELL__ >=702
+{-# LANGUAGE Trustworthy #-}
+#endif
 module Data.Bifunctor.Assoc (
     Assoc (..),
     ) where
 
-import Control.Applicative    (Const (..))
-import Data.Bifunctor         (Bifunctor (..))
-import Data.Bifunctor.Flip    (Flip (..))
-import Data.Bifunctor.Product (Product (..))
-import Data.Bifunctor.Tannen  (Tannen (..))
-import Data.Tagged            (Tagged (..))
+import Control.Applicative (Const (..))
+import Data.Bifunctor      (Bifunctor (..))
+
+#ifdef MIN_VERSION_tagged
+import Data.Tagged         (Tagged (..))
+#endif
 
 -- | "Semigroup-y" 'Bifunctor's.
 --
@@ -41,13 +47,11 @@ instance Assoc Const where
     assoc (Const (Const a)) = Const a
     unassoc (Const a) = Const (Const a)
 
+#ifdef MIN_VERSION_tagged
 instance Assoc Tagged where
     assoc (Tagged a) = Tagged (Tagged a)
     unassoc (Tagged (Tagged a)) = Tagged a
-
-instance Assoc p => Assoc (Flip p) where
-    assoc   = Flip . first Flip . unassoc . second runFlip . runFlip
-    unassoc = Flip . second Flip . assoc . first runFlip . runFlip
+#endif
 
 -- $setup
 --

@@ -1,7 +1,6 @@
 cabal-version:      1.12
 name:               assoc
-version:            1.0.2
-x-revision:         3
+version:            1.1
 license:            BSD3
 license-file:       LICENSE
 synopsis:           swap and assoc: Symmetric and Semigroupy Bifunctors
@@ -29,23 +28,35 @@ tested-with:
      || ==8.4.4
      || ==8.6.5
      || ==8.8.4
-     || ==8.10.4
+     || ==8.10.7
      || ==9.0.2
-     || ==9.2.4
-     || ==9.4.1
+     || ==9.2.7
+     || ==9.4.4
+     || ==9.6.1
   , GHCJS ==8.4
 
 source-repository head
   type:     git
   location: https://github.com/phadej/assoc.git
 
+flag tagged
+  default:     True
+  manual:      True
+  description:
+    You can disable the use of the `tagged` package using `-f-tagged`.
+    .
+    Disabing this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
+
 library
   default-language: Haskell2010
   hs-source-dirs:   src
-  build-depends:
-      base        >=4.3   && <4.18
-    , bifunctors  >=5.5.5 && <5.6
-    , tagged      >=0.8.6 && <0.9
+  build-depends:    base >=4.3 && <4.19
+
+  if flag(tagged)
+    build-depends: tagged >=0.8.6 && <0.9
+
+  if !impl(ghc >=8.0)
+    build-depends: bifunctor-classes-compat >=0.1 && <0.2
 
   exposed-modules:
     Data.Bifunctor.Assoc

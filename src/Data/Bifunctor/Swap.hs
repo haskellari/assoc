@@ -1,14 +1,15 @@
+{-# LANGUAGE CPP #-}
 {-# LANGUAGE TypeFamilies #-}
+#if __GLASGOW_HASKELL__ >=704
+{-# LANGUAGE Safe #-}
+#elif __GLASGOW_HASKELL__ >=702
+{-# LANGUAGE Trustworthy #-}
+#endif
 module Data.Bifunctor.Swap (
     Swap (..),
     ) where
 
-import Data.Bifunctor         (Bifunctor (..))
-import Data.Bifunctor.Biff    (Biff (..))
-import Data.Bifunctor.Flip    (Flip (..))
-import Data.Bifunctor.Product (Product (..))
-import Data.Bifunctor.Sum     (Sum (..))
-import Data.Bifunctor.Tannen  (Tannen (..))
+import Data.Bifunctor (Bifunctor (..))
 
 import qualified Data.Tuple
 
@@ -41,22 +42,6 @@ instance Swap (,) where
 instance Swap Either where
     swap (Left x) = Right x
     swap (Right x) = Left x
-
-instance Swap p => Swap (Flip p) where
-    swap = Flip . swap . runFlip
-
-instance (Swap p, Swap q) => Swap (Product p q) where
-    swap (Pair p q) = Pair (swap p) (swap q)
-
-instance (Swap p, Swap q) => Swap (Sum p q) where
-    swap (L2 p) = L2 (swap p)
-    swap (R2 q) = R2 (swap q)
-
-instance (Functor f, Swap p) => Swap (Tannen f p) where
-    swap = Tannen . fmap swap . runTannen
-
-instance (f ~ g, Functor f, Swap p) => Swap (Biff p f g) where
-    swap = Biff . swap . runBiff
 
 instance Swap ((,,) x) where
     swap (x,a,b) = (x,b,a)
