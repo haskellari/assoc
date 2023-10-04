@@ -1,5 +1,6 @@
 distribution: bionic
 branches:     master
+head-hackage: False
 
 constraint-set no-tagged
   constraints: assoc -tagged
