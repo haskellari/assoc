@@ -1,3 +1,7 @@
+## 1.1.1
+
+- Drop support for GHC prior GHC-8.6.5
+
 ## 1.1
 
 - Depend on `bifunctor-classes-compat` only.
